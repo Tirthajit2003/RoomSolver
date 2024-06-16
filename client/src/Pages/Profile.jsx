@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase';
-import { updateUserFailure,updateUserStart,updateUserSuccess } from '../redux/user/userSlice';
+import { deleteUserStart, deleteUserSuccess, deleteUserFailure,updateUserFailure,updateUserStart,updateUserSuccess } from '../redux/user/userSlice';
+
 
 export default function Profile() {
   const fileRef=useRef(null);
@@ -20,6 +21,7 @@ export default function Profile() {
   //     allow write : if 
   //     request.resource.size<2*1024*1024 &&
   //     request.resource.contentType.matches('image/.*')
+
   useEffect(()=>{
     if (file){
       handleFileUpload(file);
@@ -28,6 +30,24 @@ export default function Profile() {
   
   const handleChange = (e)=>{
     setFormData({...formData,[e.target.id]:e.target.value});
+  }
+
+  const handleDeleteUser = async(e)=>{
+    try {
+      dispatch(deleteUserStart());
+      const res=await fetch(`/api/user/delete/${currentUser._id}`,{
+        method:'DELETE'
+      });
+      const data=await res.json();
+      if (data.success==false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+      
+    } catch (error) {
+        dispatch(deleteUserFailure(error.message));
+    }
   }
 
   const handleSubmit=async(e)=>{
@@ -102,7 +122,7 @@ export default function Profile() {
         <button className='bg-green-500 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-80'>Create Listing</button>
       </form>
       <div className='flex justify-between mt-5'>
-        <span className='text-red-700 cursor-pointer'>Delete Account</span>
+        <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
         <span className='text-red-700 cursor-pointer'>Sign Out</span>
       </div>
       <p className='text-red-700 mt-5'>{error? error:''}</p>
