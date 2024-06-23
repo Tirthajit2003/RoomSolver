@@ -67,7 +67,8 @@ export default function CreateListing() {
                 <span className='font-normal text-gray-500 ml-2'>The first image will be the cover (max 6)</span></p>
                 <div className='flex gap-4 p-3'>
                     <input type='file' className='border border-blue-700 p-3 rounded-lg' id='images' accept='image/*' multiple/>
-                    <button className='p-3 text-green-900 border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Upload</button>
+                    <button className='p-3 font-semibold text-white bg-green-500 rounded  hover:shadow-lg disabled:opacity-80'>Upload</button>
+
                 </div>
                 <button className='p-3 bg-blue-700 text-white rounded-lg hover:opacity-95 disabled:opacity-80'>Create Listing</button>
                 
