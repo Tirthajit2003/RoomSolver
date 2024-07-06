@@ -40,10 +40,10 @@ export const updateListing = async (req, res,next) => {
         const updatedListing=await Listing.findByIdAndUpdate(req.params.id,req.body,{new:true});
         res.status(200).json(updatedListing);
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
-export const getListing = async(req, res) =>{
+export const getListing = async(req, res,next) =>{
     try {
         const listing = await Listing.findById(req.params.id);
         if (!listing) {
