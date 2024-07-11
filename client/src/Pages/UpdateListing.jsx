@@ -162,8 +162,8 @@ export default function UpdateListing() {
                 <input type='text' placeholder='Address' className='border p-3 rounded-lg' id='address' maxLength='62' minLength='10' onChange={handleChange} value={formData.address} required />
                 <div className='flex gap-6 flex-wrap'>
                     <div className='flex gap-2'>
-                        <input type='checkbox' id='sell' className='w5' onChange={handleChange}
-                        checked={formData.type ==='sell'} />
+                        <input type='checkbox' id='sale' className='w5' onChange={handleChange}
+                        checked={formData.type ==='sale'} />
                         <span>Sell</span>
                     </div>
                     <div className='flex gap-2'>
@@ -212,11 +212,11 @@ export default function UpdateListing() {
                         value={formData.regularPrice} />
                          <div className='flex flex-col items-center'>
                             <span>Regular Price</span>
-                            <span className='text-xs'>($/month)</span>
+                            <span className='text-xs'>(Rs/month)</span>
                          </div>
                         
                     </div>
-                    {formData.offer && 
+                    {formData.offer.toString()==='true' && 
                         <div className="flex items-center gap-2">
                         <input type="number" id='discountPrice' min='1' max='10000' className='p-1
                          border-blue-700 rounded-lg' required 
@@ -224,7 +224,7 @@ export default function UpdateListing() {
                         value={formData.discountPrice} />
                          <div className='flex flex-col items-center'>
                             <span>Discounted Price</span>
-                            <span className='text-xs'>($/month)</span>
+                            <span className='text-xs'>(Rs/month)</span>
 
                          </div>
                     </div>
